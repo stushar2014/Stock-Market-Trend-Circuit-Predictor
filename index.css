@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Design tokens. Tailwind v4 turns every entry here into a utility
+   class, so --color-volt becomes bg-volt / text-volt / border-volt.
+   Change a hex here and the whole site follows.
+   --------------------------------------------------------------- */
+@theme {
+  --color-abyss: #080b1c; /* page background      */
+  --color-hull: #0f1330; /* panels               */
+  --color-rail: #171c42; /* raised surfaces      */
+  --color-line: #262c5c; /* borders, gridlines   */
+  --color-ink: #e8eaf8; /* primary text         */
+  --color-mute: #8f96c2; /* secondary text       */
+  --color-volt: #7c5cff; /* action / brand       */
+  --color-rise: #35d6a4; /* bullish              */
+  --color-fall: #ff6b81; /* bearish              */
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-abyss);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One soft violet bloom behind the page so the dark palette has depth
+   instead of reading as flat black. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 78% -12%, rgba(124, 92, 255, 0.18), transparent 60%),
+    radial-gradient(48rem 32rem at 4% 8%, rgba(53, 214, 164, 0.08), transparent 55%);
+  z-index: 0;
+}
+
+/* Keyboard focus must stay obvious against the dark surfaces. */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-volt);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Native select arrows render almost invisibly on dark backgrounds. */
+select option {
+  background-color: #0f1330;
+  color: #e8eaf8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
